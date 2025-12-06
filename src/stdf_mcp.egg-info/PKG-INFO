@@ -1,0 +1,132 @@
+Metadata-Version: 2.4
+Name: stdf-mcp
+Version: 0.1.0
+Summary: MCP Server for STDF-V4 Package Test File Access
+Author: STDF MCP Development Team
+License: MIT
+Project-URL: Homepage, https://github.com/stdf-mcp/stdf-mcp
+Project-URL: Repository, https://github.com/stdf-mcp/stdf-mcp.git
+Project-URL: Issues, https://github.com/stdf-mcp/stdf-mcp/issues
+Keywords: mcp,stdf,semiconductor,testing,package-test
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: mcp>=1.0.0
+Requires-Dist: numpy>=1.24.0
+Requires-Dist: matplotlib>=3.6.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: types-setuptools; extra == "dev"
+
+# STDF-V4 MCP Server
+
+A Model Context Protocol (MCP) server that enables LLMs to efficiently access, analyze, and extract information from STDF-V4 files containing package/final test data used in semiconductor testing.
+
+## Features
+
+- **6 Specialized Metadata Tools**: Extract file overview, test configuration, yield summary, facility details, program metadata, and test parameters
+- **4 Analysis Tools**: Filtered data extraction, statistical analysis, visualization, and CSV export
+- **STDF-V4 Package Test Focus**: Exclusively supports STDF-V4 format with package/final test data
+- **High Performance**: Handles files up to 2GB with <512MB memory usage through streaming parser
+- **Automatic Integrity Validation**: Built-in file validation during all operations
+- **TDD Development**: Comprehensive test coverage with TestCases integration
+
+## Architecture
+
+### 10-Tool MCP Architecture
+
+**Metadata Tools (6):**
+- `extract_file_overview` - Quick file assessment and key identifiers
+- `extract_test_configuration` - Hardware setup and test environment
+- `extract_yield_summary` - Test results analysis and yield calculation
+- `extract_facility_details` - Manufacturing context and facility information
+- `extract_program_metadata` - Test program and software version details
+- `extract_test_parameters` - Comprehensive parameter listing with limits
+
+**Analysis Tools (4):**
+- `extract_filtered_data` - Multi-parameter extraction with CSV output
+- `calculate_statistics` - Multi-site statistical analysis with comparisons
+- `generate_visualization` - Charts and plots for test parameters
+- `export_csv` - Complete DUT test results export
+
+## Requirements
+
+- Python 3.11+
+- Anthropic MCP SDK
+- numpy (statistical calculations)
+- matplotlib (visualization)
+
+## Installation
+
+```bash
+pip install -e .
+```
+
+## Development
+
+```bash
+# Install with development dependencies
+pip install -e ".[dev]"
+
+# Run tests
+pytest
+
+# Run with coverage
+pytest --cov=src/stdf_mcp --cov-report=html
+
+# Format code
+black src/ tests/
+
+# Type checking
+mypy src/
+
+# Linting
+flake8 src/ tests/
+```
+
+## Testing
+
+The project uses comprehensive TDD approach with:
+
+- **Unit Tests**: Core STDF-V4 parsing and data models
+- **Integration Tests**: End-to-end MCP server workflows
+- **Contract Tests**: MCP tool API compliance
+- **TestCases Integration**: Real STDF-V4 files from `TestCases/` directory
+- **Output Standards**: Results stored in `TestCases/Output/` with naming convention
+
+## Performance Targets
+
+- Metadata extraction: <5 seconds
+- Filtered data extraction: <30 seconds for 1GB files
+- Memory usage: <512MB for 1GB files
+- Concurrent support: 10 LLM instances with queuing
+
+## Scope
+
+**Supported:**
+- STDF-V4 format exclusively
+- Package/final test data only
+- Files up to 2GB
+- Streaming/chunked processing
+
+**Not Supported:**
+- STDF-V3 files (rejected with clear error)
+- Wafer test data (rejected with clear error)
+- Data retention between sessions
+- Authentication/authorization
+
+## License
+
+MIT License

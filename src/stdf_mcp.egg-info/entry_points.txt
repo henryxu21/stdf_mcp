@@ -1,0 +1,2 @@
+[console_scripts]
+stdf-mcp = stdf_mcp.server:main

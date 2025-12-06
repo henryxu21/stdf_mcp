@@ -1,0 +1,17 @@
+# STDF MCP Server Dependencies
+# Generated from pyproject.toml specifications
+
+# Main dependencies
+mcp>=1.0.0
+numpy>=1.24.0
+matplotlib>=3.6.0
+openpyxl>=3.1.0  # Excel .xlsx generation for column-based filtered data output
+
+# Development dependencies
+pytest>=7.0.0
+pytest-cov>=4.0.0
+pytest-asyncio>=0.21.0
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.0.0
+types-setuptools
